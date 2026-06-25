@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>MyParty Quote Generator</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+    margin:0;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+    display:flex;
+    gap:20px;
+}
+
+.form-section{
+    flex:2;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+.summary-section{
+    flex:1;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    position:sticky;
+    top:20px;
+    height:fit-content;
+}
+
+h1,h2{
+    color:#ff6600;
+}
+
+.section{
+    margin-bottom:30px;
+}
+
+.menu-item{
+    margin:8px 0;
+}
+
+input[type=text],
+input[type=email],
+input[type=number],
+input[type=date],
+input[type=time],
+textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.selected-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px;
+    margin-bottom:5px;
+    background:#f5f5f5;
+    border-radius:5px;
+}
+
+.remove-btn{
+    background:red;
+    color:white;
+    border:none;
+    cursor:pointer;
+    padding:4px 8px;
+    border-radius:4px;
+}
+
+.whatsapp-btn{
+    width:100%;
+    padding:15px;
+    background:#25D366;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.total{
+    font-size:24px;
+    font-weight:bold;
+    color:#ff6600;
+}
+
+@media(max-width:900px){
+
+.container{
+    flex-direction:column;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="form-section">
+
+<h1>MyParty Quote Request</h1>
+
+<h2>Guests</h2>
+
+<label>Adults</label>
+<input type="number" id="adults" value="0">
+
+<label>Children Under 10</label>
+<input type="number" id="children" value="0">
+
+<h2>Starters</h2>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="25">
+Sticky BBQ Chicken Wings (R25)
+</label>
+</div>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="35">
+Peri-Peri Chicken Livers (R35)
+</label>
+</div>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="95">
+Executive Starter (R95)
+</label>
+</div>
+
+<h2>Meats</h2>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="80">
+Lamb Best End Chops (R80)
+</label>
+</div>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="75">
+Sirloin Steak (R75)
+</label>
+</div>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="40">
+Boerewors (R40)
+</label>
+</div>
+
+<h2>Salads</h2>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="25">
+Greek Salad (R25)
+</label>
+</div>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="25">
+Potato Salad (R25)
+</label>
+</div>
+
+<h2>Desserts</h2>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="35">
+Malva Pudding (R35)
+</label>
+</div>
+
+<div class="menu-item">
+<label>
+<input type="checkbox" class="menu-option" data-price="40">
+Strawberry Cheesecake (R40)
+</label>
+</div>
+
+<h2>Contact Details</h2>
+
+<label>Name</label>
+<input type="text" id="customerName">
+
+<label>Email</label>
+<input type="email" id="customerEmail">
+
+<label>Phone</label>
+<input type="text" id="customerPhone">
+
+<label>Venue</label>
+<input type="text" id="venue">
+
+<label>Date</label>
+<input type="date" id="eventDate">
+
+<label>Time</label>
+<input type="time" id="eventTime">
+
+<label>Comments</label>
+<textarea id="comments"></textarea>
+
+</div>
+
+<div class="summary-section">
+
+<h2>Quote Summary</h2>
+
+<p>Adults: <span id="adultCount">0</span></p>
+<p>Children: <span id="childCount">0</span></p>
+
+<hr>
+
+<h3>Selected Items</h3>
+
+<div id="selectedItems"></div>
+
+<hr>
+
+<p>Subtotal: R <span id="subtotal">0.00</span></p>
+
+<p>VAT (15%): R <span id="vat">0.00</span></p>
+
+<p class="total">
+Total: R <span id="total">0.00</span>
+</p>
+
+<button class="whatsapp-btn"
+type="button"
+onclick="sendWhatsAppQuote()">
+Send Quote via WhatsApp
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const adultsInput =
+document.getElementById('adults');
+
+const childrenInput =
+document.getElementById('children');
+
+const options =
+document.querySelectorAll('.menu-option');
+
+function calculateQuote(){
+
+    const adults =
+    parseInt(adultsInput.value) || 0;
+
+    const children =
+    parseInt(childrenInput.value) || 0;
+
+    document.getElementById('adultCount').textContent =
+    adults;
+
+    document.getElementById('childCount').textContent =
+    children;
+
+    let perPersonPrice = 0;
+
+    const selectedDiv =
+    document.getElementById('selectedItems');
+
+    selectedDiv.innerHTML = '';
+
+    options.forEach(option=>{
+
+        if(option.checked){
+
+            perPersonPrice +=
+            Number(option.dataset.price);
+
+            const row =
+            document.createElement('div');
+
+            row.className =
+            'selected-item';
+
+            const text =
+            document.createElement('span');
+
+            text.textContent =
+            option.parentElement.textContent.trim();
+
+            const remove =
+            document.createElement('button');
+
+            remove.className =
+            'remove-btn';
+
+            remove.innerHTML='✖';
+
+            remove.onclick = () => {
+
+                option.checked = false;
+                calculateQuote();
+
+            };
+
+            row.appendChild(text);
+            row.appendChild(remove);
+
+            selectedDiv.appendChild(row);
+        }
+
+    });
+
+    const adultTotal =
+    adults * perPersonPrice;
+
+    const childTotal =
+    children * (perPersonPrice * 0.5);
+
+    const subtotal =
+    adultTotal + childTotal;
+
+    const vat =
+    subtotal * 0.15;
+
+    const total =
+    subtotal + vat;
+
+    document.getElementById('subtotal').textContent =
+    subtotal.toFixed(2);
+
+    document.getElementById('vat').textContent =
+    vat.toFixed(2);
+
+    document.getElementById('total').textContent =
+    total.toFixed(2);
+
+}
+
+function sendWhatsAppQuote(){
+
+    let items = '';
+
+    document
+    .querySelectorAll('#selectedItems span')
+    .forEach(item=>{
+
+        items += item.textContent + '\n';
+
+    });
+
+    const message =
+
+`*MYPARTY QUOTE REQUEST*
+
+Name:
+${document.getElementById('customerName').value}
+
+Email:
+${document.getElementById('customerEmail').value}
+
+Phone:
+${document.getElementById('customerPhone').value}
+
+Venue:
+${document.getElementById('venue').value}
+
+Date:
+${document.getElementById('eventDate').value}
+
+Time:
+${document.getElementById('eventTime').value}
+
+Adults:
+${document.getElementById('adults').value}
+
+Children:
+${document.getElementById('children').value}
+
+Selected Items:
+${items}
+
+Subtotal:
+R${document.getElementById('subtotal').textContent}
+
+VAT:
+R${document.getElementById('vat').textContent}
+
+TOTAL:
+R${document.getElementById('total').textContent}
+
+Comments:
+${document.getElementById('comments').value}`;
+
+    const url =
+    'https://wa.me/27832142201?text=' +
+    encodeURIComponent(message);
+
+    window.open(url,'_blank');
+
+}
+
+adultsInput.addEventListener('input',calculateQuote);
+childrenInput.addEventListener('input',calculateQuote);
+
+options.forEach(option=>{
+    option.addEventListener('change',calculateQuote);
+});
+
+calculateQuote();
+
+</script>
+
+</body>
+</html>
