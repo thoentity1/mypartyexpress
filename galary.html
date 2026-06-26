@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyParty | Gallery</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f8f8f8;
+}
+
+header{
+    background:#ff6600;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+header h1{
+    font-size:40px;
+}
+
+header p{
+    margin-top:10px;
+}
+
+nav{
+    background:#222;
+    text-align:center;
+    padding:15px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 20px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#ff6600;
+}
+
+.hero{
+    background:url("images/banner.jpg") center/cover;
+    height:300px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-shadow:2px 2px 8px black;
+    font-size:45px;
+    font-weight:bold;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:20px;
+}
+
+.card-content h3{
+    color:#ff6600;
+    margin-bottom:10px;
+}
+
+.card-content p{
+    color:#555;
+    line-height:1.5;
+}
+
+.price{
+    font-size:22px;
+    color:#c62828;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>MyParty Catering</h1>
+
+<p>Fresh • Delicious • Professional Catering</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="gallery.html">Gallery</a>
+
+<a href="quote.html">Get Quote</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<div class="hero">
+
+Our Catering Gallery
+
+</div>
+
+<div class="container">
+
+<div class="gallery">
+
+<div class="card">
+
+<img src="images/wings.jpg" alt="Sticky BBQ Wings">
+
+<div class="card-content">
+
+<h3>Sticky BBQ Chicken Wings</h3>
+
+<p>Juicy chicken wings grilled to perfection and coated in our signature sticky BBQ sauce.</p>
+
+<div class="price">R25</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/lamb.jpg" alt="Lamb Chops">
+
+<div class="card-content">
+
+<h3>Lamb Best End Chops</h3>
+
+<p>Tender flame-grilled lamb chops seasoned with our special herbs and spices.</p>
+
+<div class="price">R80</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/steak.jpg" alt="Sirloin Steak">
+
+<div class="card-content">
+
+<h3>Sirloin Steak</h3>
+
+<p>Premium 200g sirloin steak cooked over an open flame for incredible flavour.</p>
+
+<div class="price">R75</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/boerewors.jpg" alt="Boerewors">
+
+<div class="card-content">
+
+<h3>Magalies Boerewors</h3>
+
+<p>Traditional South African boerewors cooked fresh on the braai.</p>
+
+<div class="price">R40</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/potatobake.jpg" alt="Potato Bake">
+
+<div class="card-content">
+
+<h3>Bacon & Mushroom Potato Bake</h3>
+
+<p>Creamy potato bake topped with crispy bacon and mushrooms.</p>
+
+<div class="price">R25</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/chakalaka.jpg" alt="Chakalaka">
+
+<div class="card-content">
+
+<h3>Traditional Chakalaka</h3>
+
+<p>Authentic spicy South African vegetable relish served fresh.</p>
+
+<div class="price">R15</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/greeksalad.jpg" alt="Greek Salad">
+
+<div class="card-content">
+
+<h3>Rich Greek Salad</h3>
+
+<p>Crisp lettuce, cucumber, tomatoes, feta cheese and olives.</p>
+
+<div class="price">R25</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/malva.jpg" alt="Malva Pudding">
+
+<div class="card-content">
+
+<h3>Malva Pudding & Custard</h3>
+
+<p>South Africa's favourite warm dessert served with creamy custard.</p>
+
+<div class="price">R35</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="images/cheesecake.jpg" alt="Cheesecake">
+
+<div class="card-content">
+
+<h3>Strawberry Cheesecake</h3>
+
+<p>Rich baked cheesecake topped with delicious strawberry glaze.</p>
+
+<div class="price">R40</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+<h3>MyParty Catering</h3>
+
+<p>Making Every Celebration Delicious</p>
+
+<p>📞 083 214 2201</p>
+
+<p>© 2025 MyParty. All Rights Reserved.</p>
+
+</footer>
+
+</body>
+</html>
